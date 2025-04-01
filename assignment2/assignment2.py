@@ -1,5 +1,7 @@
 import csv
 import os
+import custom_module
+from datetime import datetime
 
 # Task 2: Read a CSV File
 def read_employees():
@@ -95,3 +97,63 @@ def get_this_value():
 print("TASK 10:", get_this_value())
 
 # Task 11: Creating Your Own Module
+def set_that_secret(secret):
+    return custom_module.set_secret(secret)
+
+print("Task 11: Before:", custom_module.secret)
+set_that_secret("code the dream")
+print("Task 11: After:", custom_module.secret)
+
+# Task 12: Read minutes1.csv and minutes2.csv
+
+def read_minutes():
+    min1 = {}
+    min2 = {}
+    with open("../csv/minutes1.csv", "r") as f1, open("../csv/minutes2.csv", "r") as f2:
+        reader_1 = csv.reader(f1)
+        fields_1 = next(reader_1)
+        rows_1 = [tuple(row) for row in reader_1]
+        min1["fields"] = fields_1
+        min1["rows"] = list(rows_1)
+        # minutes-2
+        reader_2 = csv.reader(f2)
+        fields_2 = next(reader_2)
+        rows_2 = [tuple(row) for row in reader_2]
+        min2["fields"] = fields_2
+        min2["rows"] = list(rows_2)
+    # print(minutes2["rows"][2])
+    return min1, min2
+
+minutes1, minutes2 = read_minutes()
+
+# Task 13: Create minutes_set
+def create_minutes_set():
+    rows_min1 = set(minutes1["rows"])
+    rows_min2 = set(minutes2["rows"])
+    return rows_min1.union(rows_min2)
+
+minutes_set = create_minutes_set()
+print("Task 13:", minutes_set)
+
+#  Task 14: Convert to datetime 
+def create_minutes_list():
+    converted = list(map(lambda x: (x[0], datetime.strptime(x[1], "%B %d, %Y")), minutes_set))
+    return converted
+
+minutes_list = create_minutes_list()
+print("Task 14:", minutes_list)
+
+# Task 15: Write Out Sorted List
+def write_sorted_list():
+    minutes_list.sort(key=lambda x: x[1])
+    conv_list = list(map(lambda x: (x[0], datetime.strftime(x[1], "%B %d, %Y")), minutes_list))
+    with open("minutes.csv", "w", newline="") as m1:
+        writer = csv.writer(m1)
+        writer.writerow(minutes1["fields"])
+        writer.writerows(conv_list)
+    
+    return conv_list;
+
+
+# print(write_sorted_list())
+
