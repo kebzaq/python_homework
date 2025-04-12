@@ -110,6 +110,7 @@ def read_minutes():
     min1 = {}
     min2 = {}
     with open("../csv/minutes1.csv", "r") as f1, open("../csv/minutes2.csv", "r") as f2:
+        # minutes-1
         reader_1 = csv.reader(f1)
         fields_1 = next(reader_1)
         rows_1 = [tuple(row) for row in reader_1]
@@ -147,7 +148,7 @@ print("Task 14:", minutes_list)
 def write_sorted_list():
     minutes_list.sort(key=lambda x: x[1])
     conv_list = list(map(lambda x: (x[0], datetime.strftime(x[1], "%B %d, %Y")), minutes_list))
-    with open("minutes.csv", "w", newline="") as m1:
+    with open("./minutes.csv", "w", newline="") as m1:
         writer = csv.writer(m1)
         writer.writerow(minutes1["fields"])
         writer.writerows(conv_list)
@@ -155,5 +156,5 @@ def write_sorted_list():
     return conv_list;
 
 
-# print(write_sorted_list())
+print("Task 15", write_sorted_list())
 
