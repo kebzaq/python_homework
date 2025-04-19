@@ -109,14 +109,14 @@ print("Task 11: After:", custom_module.secret)
 def read_minutes():
     min1 = {}
     min2 = {}
-    with open("../csv/minutes1.csv", "r") as f1, open("../csv/minutes2.csv", "r") as f2:
-        # minutes-1
+    with open("../csv/minutes1.csv", "r") as f1:
         reader_1 = csv.reader(f1)
         fields_1 = next(reader_1)
         rows_1 = [tuple(row) for row in reader_1]
         min1["fields"] = fields_1
         min1["rows"] = list(rows_1)
         # minutes-2
+    with open("../csv/minutes2.csv", "r") as f2:
         reader_2 = csv.reader(f2)
         fields_2 = next(reader_2)
         rows_2 = [tuple(row) for row in reader_2]
